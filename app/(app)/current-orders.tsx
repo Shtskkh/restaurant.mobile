@@ -24,8 +24,12 @@ export default function CurrentOrdersScreen() {
         )
     }
 
-    if (error) {
-        console.error(error);
+    if (!data || error) {
+        return (
+            <SafeAreaView style={styles.tabContainer}>
+                <Text>Нет заказов.</Text>
+            </SafeAreaView>
+        )
     }
 
     const renderDishItem = ({item}) => (
@@ -38,7 +42,7 @@ export default function CurrentOrdersScreen() {
     return (
         <SafeAreaView style={styles.tabContainer}>
             <ScrollView>
-                {data?.map((order) => (
+                {data.map((order) => (
                     <Card key={order.idOrder} style={styles.card}>
                         <Text category='h6'>Заказ #{order.idOrder}</Text>
                         <Text appearance='hint'>Стол: {order.tableNumber}</Text>
